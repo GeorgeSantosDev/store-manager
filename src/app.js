@@ -2,6 +2,7 @@ const express = require('express');
 const { productsRouter } = require('./routers/index');
 
 const app = express();
+app.use(express.json());
 
 app.use('/products', productsRouter);
 
