@@ -1,4 +1,5 @@
 const { productsModel } = require('../models/index');
+const productAlreadyExist = require('./validations/validateProductAlreadyExist');
 
 const getAllProducts = async () => {
   const products = await productsModel.findAll();
@@ -16,8 +17,11 @@ const getProductById = async (id) => {
   return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 };
 
-const insertProduct = async ({ name }) => {
+const insertProduct = async (name) => {
   const productCreated = await productsModel.insert(name);
+  const productExist = await productAlreadyExist(name);
+
+  if (productExist) return { type: 'PRODUCT_ALREADY_EXIST', message: 'Product already exist' };
 
   if (productCreated) return { type: null, message: productCreated };
 
