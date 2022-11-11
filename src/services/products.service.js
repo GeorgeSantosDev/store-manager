@@ -18,12 +18,13 @@ const getProductById = async (id) => {
 };
 
 const insertProduct = async (name) => {
-  const productCreated = await productsModel.insert(name);
   const productExist = await productAlreadyExist(name);
-
   if (productExist) return { type: 'PRODUCT_ALREADY_EXIST', message: 'Product already exist' };
 
-  if (productCreated) return { type: null, message: productCreated };
+  const [{ insertId }] = await productsModel.insert(name);
+  const findNewPRoduct = await productsModel.findById(insertId);
+
+  if (findNewPRoduct) return { type: null, message: findNewPRoduct };
 
   return { type: 'PRODUCT_NOT_CREATED', message: 'Product not created' };
 };
