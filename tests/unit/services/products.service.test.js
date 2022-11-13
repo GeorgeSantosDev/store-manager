@@ -25,4 +25,12 @@ describe('Test service layer of products path', function () {
     expect(response).to.be.deep.equal({ type: null, message: serviceMocks.allProducts[0] });
   });
 
+  it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found', async function () {
+    sinon.stub(productsModel, 'findById').resolves('');
+    const response = await productsService.getProductById();
+    expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+  });
+
 });
+
+
