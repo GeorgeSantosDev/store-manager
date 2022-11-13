@@ -5,10 +5,30 @@ const { productsModel } = require('../../../src/models');
 const connection = require('../../../src/models/connection');
 const modelMocks = require('./Mocks/products.model.mock');
 
-describe('Test model layer of products path', function() {
+describe('Test model layer of products path', function () {
+  afterEach(sinon.restore);
+
   it('should return an array with all products', async function () {
     sinon.stub(connection, 'execute').resolves([modelMocks.products]);
     const response = await productsModel.findAll();
     expect(response).to.be.deep.equal(modelMocks.products);
+  });
+
+  it('should return a product search by id', async function () {
+    sinon.stub(connection, 'execute').resolves([[modelMocks.products[1]]]);
+    const response = await productsModel.findById(1);
+    expect(response).to.be.deep.equal(modelMocks.products[1]);
+  });
+
+  it('should return a new product with id', async function () {
+    sinon.stub(connection, 'execute').resolves(modelMocks.newProduct);
+    const response = await productsModel.insert('Iphone 14');
+    expect(response).to.be.deep.equal(modelMocks.newProduct);
+  });
+
+  it('should return a product search by name', async function () {
+    sinon.stub(connection, 'execute').resolves([[modelMocks.products[1]]]);
+    const response = await productsModel.findProductByName('Martelo de Thor');
+    expect(response).to.be.deep.equal(modelMocks.products[1]);
   });
 });
