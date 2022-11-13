@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const { productsModel } = require('../../../src/models');
 const { productsService } = require('../../../src/services');
-const productValidation = require('../../../src/services/validations/validateProductAlreadyExist');
+// const productValidation = require('../../../src/services/validations/validateProductAlreadyExist');
 const serviceMocks = require('./Mocks/products.service.mocks');
 
 describe('Test service layer of products path', function () {
@@ -43,6 +43,13 @@ describe('Test service layer of products path', function () {
     sinon.stub(productsModel, 'findById').resolves(serviceMocks.allProducts[0]);
     const response = await productsService.insertProduct('Any');
     expect(response).to.be.deep.equal({ type: null, message: serviceMocks.allProducts[0] });
+  });
+
+  it('should return a object with type PRODUCT_NOT_CREATED and message with "Product not created"', async function () {
+    sinon.stub(productsModel, 'insert').resolves([{ insertId: '' }])
+    sinon.stub(productsModel, 'findById').resolves('');
+    const response = await productsService.insertProduct('any');
+    expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_CREATED', message: 'Product not created' });
   });
 });
 
