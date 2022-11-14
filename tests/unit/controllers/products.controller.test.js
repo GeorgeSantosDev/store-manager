@@ -44,7 +44,7 @@ describe('Test controller layer of products path', function () {
     expect(res.json).to.have.been.calledWith(controllerMock.allProducts);
   });
 
-  it('should return status 200 and message with "Internal server error!"', async function () {
+  it('should return status 404 and message with "Product not found"', async function () {
     const res = {};
     const req = { params: { id: 1 } };
 
@@ -58,6 +58,22 @@ describe('Test controller layer of products path', function () {
 
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+  });
+
+  it('should return status 200 and message with an object', async function () {
+    const res = {};
+    const req = { params: { id: 1 } };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productsService, 'getProductById')
+      .resolves({ type: null, message: controllerMock.allProducts[0] });
+
+    await productsController.findProductById(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(controllerMock.allProducts[0]);
   });
   
 });
