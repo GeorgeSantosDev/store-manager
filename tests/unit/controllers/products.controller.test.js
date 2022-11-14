@@ -75,5 +75,21 @@ describe('Test controller layer of products path', function () {
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith(controllerMock.allProducts[0]);
   });
+
+  it('should return status 500 and message with "Product not created"', async function () {
+    const res = {};
+    const req = { body: { name: 'Abcdef' } };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productsService, 'insertProduct')
+      .resolves({ type: 'PRODUCT_NOT_CREATED', message: 'Product not created' });
+
+    await productsController.createNewProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(500);
+    expect(res.json).to.have.been.calledWith({ message: 'Product not created' });
+  });
   
 });
