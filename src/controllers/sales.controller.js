@@ -11,14 +11,18 @@ const addNewSales = async (req, res) => {
 };
 
 const getSales = async (req, res) => {
-  const { message } = await salesService.findAllSales();
+  const { type, message } = await salesService.findAllSales();
+
+  if (type) return res.status(errorMap.mapError(type)).json({ message });
 
   res.status(200).json(message);
 };
 
 const getSaleById = async (req, res) => {
   const { id } = req.params;
-  const { message } = await salesService.findSaleById(id);
+  const { type, message } = await salesService.findSaleById(id);
+  
+  if (type) return res.status(errorMap.mapError(type)).json({ message });
 
   res.status(200).json(message);
 };
