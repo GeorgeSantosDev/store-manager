@@ -18,6 +18,17 @@ const validateQuantityField = (req, res, next) => {
   return res.status(errorMap.INVALID_FIELD).json({ message: '"quantity" is required' });
 };
 
+const validateQuantityFieldValue = (req, res, next) => {
+  const sales = req.body;
+  const everyoneHasQuantityValueValid = sales.every((sale) => Number(sale.quantity) > 0);
+
+  if (everyoneHasQuantityValueValid) return next();
+
+  return res.status(errorMap.INVALID_VALUE).json({ message: '"quantity" must be greater than or equal to 1' });
+};
+
 module.exports = {
   validateIdField,
+  validateQuantityField,
+  validateQuantityFieldValue,
 };
