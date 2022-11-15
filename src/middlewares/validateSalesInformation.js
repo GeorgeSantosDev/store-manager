@@ -24,7 +24,8 @@ const validateQuantityFieldValue = (req, res, next) => {
 
   if (everyoneHasQuantityValueValid) return next();
 
-  return res.status(errorMap.INVALID_VALUE).json({ message: '"quantity" must be greater than or equal to 1' });
+  return res.status(errorMap.INVALID_VALUE)
+    .json({ message: '"quantity" must be greater than or equal to 1' });
 };
 
 module.exports = {
