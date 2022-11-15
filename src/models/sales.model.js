@@ -3,6 +3,15 @@ const snakeize = require('snakeize');
 const connection = require('./connection');
 const currentDate = require('../utils/currentDate');
 
+const insertSaleId = async () => {
+  const [{ insertId }] = await connection.execute(
+    'INSERT INTO StoreManager.sales (date) VALUES (?)',
+    [currentDate()],
+  );
+
+  return insertId;
+};
+
 const insertSales = async (sale) => {
   const columns = Object.keys(snakeize(sale));
   const values = Object.values(sale);
@@ -13,14 +22,10 @@ const insertSales = async (sale) => {
     [...values],
   );
 
-   await connection.execute(
-    'INSERT INTO StoreManager.sales (date) VALUES (?)',
-     [currentDate()],
-  );
-
   return newSale;
 };
 
 module.exports = {
   insertSales,
+  insertSaleId,
 };
