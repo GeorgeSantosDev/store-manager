@@ -2,7 +2,7 @@ const { errorMap } = require('../utils/errorMap');
 
 const validateIdField = (req, res, next) => {
   const sales = req.body;
-  const everyoneHasId = sales.every((sale) => 'porductId' in sale);
+  const everyoneHasId = sales.every((sale) => 'productId' in sale);
 
   if (everyoneHasId) return next();
 
@@ -12,6 +12,7 @@ const validateIdField = (req, res, next) => {
 const validateQuantityField = (req, res, next) => {
   const sales = req.body;
   const everyoneHasQuantity = sales.every((sale) => 'quantity' in sale);
+  console.log(everyoneHasQuantity);
 
   if (everyoneHasQuantity) return next();
 
