@@ -17,6 +17,21 @@ const insertNewSale = async (sales) => {
   return { type: 'SALE_NOT_ADDED', message: 'Sale not added' };
 };
 
+const findAllSales = async () => {
+  const allSales = await salesModel.findAll();
+
+  if (allSales) return { type: null, message: allSales };
+};
+
+const findSaleById = async (id) => {
+  const sale = await salesModel.findById(id);
+
+  if (sale) return { type: null, message: sale };
+
+};
+
 module.exports = {
   insertNewSale,
+  findAllSales,
+  findSaleById,
 };
