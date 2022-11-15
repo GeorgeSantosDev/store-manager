@@ -12,7 +12,6 @@ const validateIdField = (req, res, next) => {
 const validateQuantityField = (req, res, next) => {
   const sales = req.body;
   const everyoneHasQuantity = sales.every((sale) => 'quantity' in sale);
-  console.log(everyoneHasQuantity);
 
   if (everyoneHasQuantity) return next();
 
