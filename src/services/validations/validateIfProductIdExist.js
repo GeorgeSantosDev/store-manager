@@ -1,7 +1,7 @@
-const { salesModel } = require('../../models/index');
+const { productsModel } = require('../../models/index');
 
 const productExist = async (sales) => {
-  const promise = sales.map(({ productId }) => salesModel.findById(Number(productId)));
+  const promise = sales.map(({ productId }) => productsModel.findById(Number(productId)));
   const response = await Promise.all(promise);
   const allProductsExist = response.every((id) => id);
 
