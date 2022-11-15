@@ -1,5 +1,5 @@
 const { salesModel } = require('../models');
-const validations = require('./validations/validateIfProductIdExist');
+const validations = require('./validations/validateIfSaleIdExist');
 
 const insertNewSale = async (sales) => {
   const allIdsValid = await validations.productExist(sales);
@@ -21,13 +21,18 @@ const findAllSales = async () => {
   const allSales = await salesModel.findAll();
 
   if (allSales) return { type: null, message: allSales };
+
+  return { type: 'INTERNAL_SERVER_ERROR', message: 'Internal server error!' };
 };
 
 const findSaleById = async (id) => {
+  const findSale = await validations.saleExist(id);
+
+  if (!findSale[0]) return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+
   const sale = await salesModel.findById(id);
 
   if (sale) return { type: null, message: sale };
-
 };
 
 module.exports = {
