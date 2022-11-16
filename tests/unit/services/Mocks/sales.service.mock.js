@@ -26,7 +26,16 @@ const allSales = [
   }
 ]
 
+const sale = [
+  {
+    productId: 2,
+    quantity: 10,
+    date: '2022-11-16T17:06:10.000Z'
+  }
+]
+
 module.exports = {
   newSale,
   allSales,
+  sale,
 };
