@@ -37,4 +37,10 @@ describe('Test model layer of products path', function () {
     const response = await productsModel.update(1, 'Iphone 8');
     expect(response).to.be.deep.equal(modelMocks.updateReturn);
   });
+
+  it('should delete product', async function () {
+    sinon.stub(connection, 'execute').resolves([modelMocks.deleteReturn]);
+    const response = await productsModel.deleteProduct(1);
+    expect(response).to.be.deep.equal(modelMocks.deleteReturn);
+  });
 });
