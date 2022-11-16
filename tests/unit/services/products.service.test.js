@@ -31,12 +31,6 @@ describe('Test service layer of products path', function () {
     expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
   });
 
-  // it('should return a object with type PRODUCT_ALREADY_EXIST and message with "Product already exist"', async function () {
-  //   sinon.stub(productsModel, 'findProductByName').return('anything');
-  //   const response = await productsService.insertProduct('anything');
-  //   expect(response).to.be.deep.equal({ type: 'PRODUCT_ALREADY_EXIST', message: 'Product already exist' });
-  // });
- 
   it('should return a object with type null and message with an object', async function () {
     sinon.stub(productsModel, 'insert').resolves([{ insertId: 1 }])
     sinon.stub(productsModel, 'findById').resolves(serviceMocks.allProducts[0]);
