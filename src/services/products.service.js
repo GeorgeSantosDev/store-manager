@@ -18,9 +18,6 @@ const getProductById = async (id) => {
 };
 
 const insertProduct = async (name) => {
-  const productExist = await validations.productNameValidation.productAlreadyExist(name);
-  if (productExist) return { type: 'PRODUCT_ALREADY_EXIST', message: 'Product already exist' };
-
   const [{ insertId }] = await productsModel.insert(name);
   const findNewPRoduct = await productsModel.findById(insertId);
 
