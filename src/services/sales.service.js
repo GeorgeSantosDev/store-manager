@@ -33,8 +33,19 @@ const findSaleById = async (id) => {
   if (sale) return { type: null, message: sale };
 };
 
+const deleteSaleById = async (id) => {
+  const findSale = await validations.salesValidation.saleExist(id);
+
+  if (!findSale[0]) return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+
+  const saleDeleted = await salesModel.deleteSale(id);
+
+  if (saleDeleted) return { type: null, message: saleDeleted };
+};
+
 module.exports = {
   insertNewSale,
   findAllSales,
   findSaleById,
+  deleteSaleById,
 };
