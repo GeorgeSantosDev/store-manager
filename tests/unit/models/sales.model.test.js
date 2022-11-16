@@ -3,7 +3,6 @@ const sinon = require('sinon');
 const { salesModel } = require('../../../src/models');
 
 const connection = require('../../../src/models/connection');
-const { insert } = require('../../../src/models/products.model');
 const modelMocks = require('./Mocks/sales.model.mock');
 
 describe('Test model layer of sales path', function () {
@@ -27,4 +26,9 @@ describe('Test model layer of sales path', function () {
     expect(response).to.be.equal(1);
   });
 
+  it('should return an object with affected rows', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }, null]);
+    const response = await salesModel.insertSales(modelMocks.newSale);
+    expect(response).to.be.deep.equal([{ affectedRows: 1 }, null]);
+  });
 });
