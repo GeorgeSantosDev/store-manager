@@ -21,6 +21,18 @@ describe('Test service layer of products path', function () {
     expect(response).to.be.deep.equal({ type: null, message: { id: 1, itemsSold: serviceMock.newSale } });
   });
 
+  it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found"', async function () {
+    sinon.stub(salesModel, 'findAll').resolves(undefined);
+    const response = await salesService.findAllSales();
+    expect(response).to.be.deep.equal({ type: 'INTERNAL_SERVER_ERROR', message: 'Internal server error!' });
+  });
+
+  it('should return a object with type null and message with an array of sales', async function () {
+    sinon.stub(salesModel, 'findAll').resolves(serviceMock.allSales);
+    const response = await salesService.findAllSales();
+    expect(response).to.be.deep.equal({ type: null, message: serviceMock.allSales });
+  });
+
 });
 
 
