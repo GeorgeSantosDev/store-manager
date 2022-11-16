@@ -14,4 +14,11 @@ describe('Test model layer of sales path', function () {
     expect(response).to.be.deep.equal(modelMocks.sales);
   });
 
+  it('should return a sale searched by id', async function () {
+    sinon.stub(connection, 'execute').resolves([[modelMocks.sale]]);
+    const response = await salesModel.findById(1);
+    expect(response).to.be.deep.equal([modelMocks.sale]);
+  });
+
+
 });
