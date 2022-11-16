@@ -77,5 +77,36 @@ describe('Test controller layer of sales path', function () {
     expect(res.json).to.have.been.calledWith(controllerMock.allSales[0]);
   });
 
+  it('should return status 404 and message with "Product not found"', async function () {
+    const res = {};
+    const req = { body: controllerMock.salesForAdd };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(salesService, 'insertNewSale')
+      .resolves({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+
+    await salesController.addNewSales(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+  });
+
+  it('should return status 201 and message with an object of sales inserted', async function () {
+    const res = {};
+    const req = { body: controllerMock.salesForAdd };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(salesService, 'insertNewSale')
+      .resolves({ type: null, message: { id: 1, itemsSold: controllerMock.salesForAdd } });
+
+    await salesController.addNewSales(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith({ id: 1 , itemsSold: controllerMock.salesForAdd });
+  });
 });
 
