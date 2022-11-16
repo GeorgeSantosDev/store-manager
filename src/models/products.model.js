@@ -28,15 +28,6 @@ const insert = async (name) => {
   return newProduct;
 };
 
-const findProductByName = async (name) => {
-  const [[result]] = await connection.execute(
-    'SELECT * FROM StoreManager.products WHERE name = ?',
-    [name],
-  );
-
-  return result;
-}; 
-
 const update = async (id, name) => {
   const [result] = await connection.execute(
     `UPDATE StoreManager.products
@@ -66,7 +57,6 @@ module.exports = {
   findAll,
   findById,
   insert,
-  findProductByName,
   update,
   deleteProduct,
 };
