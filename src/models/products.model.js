@@ -35,7 +35,7 @@ const findProductByName = async (name) => {
   );
 
   return result;
-};
+}; 
 
 const update = async (id, name) => {
   const [result] = await connection.execute(

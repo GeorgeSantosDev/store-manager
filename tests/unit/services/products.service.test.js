@@ -40,14 +40,14 @@ describe('Test service layer of products path', function () {
   it('should return a object with type null and message with an object', async function () {
     sinon.stub(productsModel, 'insert').resolves([{ insertId: 1 }])
     sinon.stub(productsModel, 'findById').resolves(serviceMocks.allProducts[0]);
-    const response = await productsService.insertProduct('Any');
+    const response = await productsService.insertProduct('Martelo do Thor');
     expect(response).to.be.deep.equal({ type: null, message: serviceMocks.allProducts[0] });
   });
 
   it('should return a object with type PRODUCT_NOT_CREATED and message with "Product not created"', async function () {
     sinon.stub(productsModel, 'insert').resolves([{ insertId: '' }])
     sinon.stub(productsModel, 'findById').resolves('');
-    const response = await productsService.insertProduct('Any');
+    const response = await productsService.insertProduct('Martelo do Thor');
     expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_CREATED', message: 'Product not created' });
   });
 
