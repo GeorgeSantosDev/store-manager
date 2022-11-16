@@ -107,5 +107,37 @@ describe('Test controller layer of products path', function () {
     expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith(controllerMock.newProduct);
   });
+
+  it('should return status 404 and message with "Product not found"', async function () {
+    const res = {};
+    const req = { params: { id: 1 }, body: { name:'Raio de Zeus' } };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productsService, 'updateItem')
+      .resolves({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+
+    await productsController.updateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+  });
+
+  it('should return status 200 and message with an obejct updated', async function () {
+    const res = {};
+    const req = { params: { id: 1 }, body: { name: 'Raio de Zeus' } };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productsService, 'updateItem')
+      .resolves({ type: null, message: controllerMock.newProduct });
+
+    await productsController.updateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(controllerMock.newProduct);
+  });
 });
 
