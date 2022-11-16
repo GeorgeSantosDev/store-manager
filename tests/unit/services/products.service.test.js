@@ -2,7 +2,6 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const { productsModel } = require('../../../src/models');
 const { productsService } = require('../../../src/services');
-// const productValidation = require('../../../src/services/validations/validateProductAlreadyExist');
 const serviceMocks = require('./Mocks/products.service.mocks');
 
 describe('Test service layer of products path', function () {
@@ -33,11 +32,11 @@ describe('Test service layer of products path', function () {
   });
 
   // it('should return a object with type PRODUCT_ALREADY_EXIST and message with "Product already exist"', async function () {
-  //   sinon.stub(productValidation, 'productAlreadyExist').return(true);
-  //   const response = await productsService.insertProduct('any');
+  //   sinon.stub(productsModel, 'findProductByName').return('anything');
+  //   const response = await productsService.insertProduct('anything');
   //   expect(response).to.be.deep.equal({ type: 'PRODUCT_ALREADY_EXIST', message: 'Product already exist' });
   // });
-
+ 
   it('should return a object with type null and message with an object', async function () {
     sinon.stub(productsModel, 'insert').resolves([{ insertId: 1 }])
     sinon.stub(productsModel, 'findById').resolves(serviceMocks.allProducts[0]);
@@ -48,8 +47,20 @@ describe('Test service layer of products path', function () {
   it('should return a object with type PRODUCT_NOT_CREATED and message with "Product not created"', async function () {
     sinon.stub(productsModel, 'insert').resolves([{ insertId: '' }])
     sinon.stub(productsModel, 'findById').resolves('');
-    const response = await productsService.insertProduct('any');
+    const response = await productsService.insertProduct('Any');
     expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_CREATED', message: 'Product not created' });
+  });
+
+  it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found for update function"', async function () {
+    sinon.stub(productsModel, 'findById').resolves('');
+    const response = await productsService.updateItem(1, 'Anything');
+    expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+  });
+
+  it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found for delete function"', async function () {
+    sinon.stub(productsModel, 'findById').resolves('');
+    const response = await productsService.deleteItem();
+    expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
   });
 });
 
