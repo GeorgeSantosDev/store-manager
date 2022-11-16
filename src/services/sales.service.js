@@ -1,8 +1,8 @@
 const { salesModel } = require('../models');
-const validations = require('./validations/validateIfSaleIdExist');
+const validations = require('./validations/index');
 
 const insertNewSale = async (sales) => {
-  const allIdsValid = await validations.productExist(sales);
+  const allIdsValid = await validations.productValidation.productExist(sales);
 
   if (!allIdsValid) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 
@@ -26,7 +26,7 @@ const findAllSales = async () => {
 };
 
 const findSaleById = async (id) => {
-  const findSale = await validations.saleExist(id);
+  const findSale = await validations.salesValidation.saleExist(id);
 
   if (!findSale[0]) return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
 
