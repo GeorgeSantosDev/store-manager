@@ -31,7 +31,6 @@ const insertProduct = async (name) => {
 
 const updateItem = async (id, name) => {
   const product = await validations.productValidation.productExist([{ productId: id }]);
-
   if (!product) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
   
   const productUpdated = await productsModel.update(id, name);
@@ -40,6 +39,9 @@ const updateItem = async (id, name) => {
 };
 
 const deleteItem = async (id) => {
+  const product = await validations.productValidation.productExist([{ productId: id }]);
+  if (!product) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+
   const productDeleted = await productsModel.deleteProduct(id);
 
   if (productDeleted) return { type: null, message: productDeleted };
