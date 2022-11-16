@@ -29,8 +29,15 @@ const insertProduct = async (name) => {
   return { type: 'PRODUCT_NOT_CREATED', message: 'Product not created' };
 };
 
+const updateItem = async (id, name) => {
+  const productUpdated = await productsModel.update(id, name);
+
+  if (productUpdated) return { type: null, message: productUpdated };
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
   insertProduct,
+  updateItem,
 };
