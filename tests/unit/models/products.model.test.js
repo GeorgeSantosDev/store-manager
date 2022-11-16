@@ -26,12 +26,6 @@ describe('Test model layer of products path', function () {
     expect(response).to.be.deep.equal(modelMocks.newProduct);
   });
 
-  it('should return a product searched by name', async function () {
-    sinon.stub(connection, 'execute').resolves([[modelMocks.products[1]]]);
-    const response = await productsModel.findProductByName('Martelo de Thor');
-    expect(response).to.be.deep.equal(modelMocks.products[1]);
-  });
-
   it('should update product infos', async function () {
     sinon.stub(connection, 'execute').resolves([modelMocks.updateReturn]);
     const response = await productsModel.update(1, 'Iphone 8');

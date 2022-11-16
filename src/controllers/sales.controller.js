@@ -10,7 +10,7 @@ const addNewSales = async (req, res) => {
   res.status(201).json(message);
 };
 
-const getSales = async (req, res) => {
+const getSales = async (_req, res) => {
   const { type, message } = await salesService.findAllSales();
 
   if (type) return res.status(errorMap.mapError(type)).json({ message });
