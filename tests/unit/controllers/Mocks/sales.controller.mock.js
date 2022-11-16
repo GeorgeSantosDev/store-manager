@@ -19,6 +19,22 @@ const allSales = [
   }
 ]
 
+const salesForAdd = [
+  {
+    productId: 1,
+    quantity: 15,
+  },
+  {
+    productId: 2,
+    quantity: 17,
+  },
+  {
+    productId: 3,
+    quantity: 1,
+  },
+]; 
+
 module.exports = {
   allSales,
+  salesForAdd,
 };
