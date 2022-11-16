@@ -51,16 +51,30 @@ describe('Test service layer of products path', function () {
     expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_CREATED', message: 'Product not created' });
   });
 
-  it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found for update function"', async function () {
+  it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found" for update function', async function () {
     sinon.stub(productsModel, 'findById').resolves('');
     const response = await productsService.updateItem(1, 'Anything');
     expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
   });
 
-  it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found for delete function"', async function () {
+  it('should return a object with type null and message with an object for update function"', async function () {
+    sinon.stub(productsModel, 'findById').resolves([serviceMocks.allProducts[0]]);
+    sinon.stub(productsModel, 'update').resolves({ id: 1, name: { } });
+    const response = await productsService.updateItem(1, 'Anything');
+    expect(response).to.be.deep.equal({ type: null, message: { id: 1, name: 'Anything' } });
+  });
+
+  it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found"  for delete function', async function () {
     sinon.stub(productsModel, 'findById').resolves('');
     const response = await productsService.deleteItem();
     expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+  });
+
+  it('should return a object with type null and message with an object for delete function"', async function () {
+    sinon.stub(productsModel, 'findById').resolves([serviceMocks.allProducts[0]]);
+    sinon.stub(productsModel, 'deleteProduct').resolves({});
+    const response = await productsService.deleteItem();
+    expect(response).to.be.deep.equal({ type: null, message: { } });
   });
 });
 
