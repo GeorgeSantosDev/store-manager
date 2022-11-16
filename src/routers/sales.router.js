@@ -11,5 +11,6 @@ router.post('/',
   validateSalesInformation.validateQuantityField,
   validateSalesInformation.validateQuantityFieldValue,
   salesController.addNewSales);
+router.delete('/:id', salesController.deleteSale);
 
 module.exports = router;
