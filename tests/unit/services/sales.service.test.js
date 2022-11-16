@@ -4,7 +4,7 @@ const { salesModel, productsModel } = require('../../../src/models');
 const { salesService } = require('../../../src/services');
 const serviceMock = require('./Mocks/sales.service.mock');
 
-describe('Test service layer of products path', function () {
+describe('Test service layer of sales path', function () {
   afterEach(sinon.restore);
 
   it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found"', async function () {
@@ -33,10 +33,10 @@ describe('Test service layer of products path', function () {
     expect(response).to.be.deep.equal({ type: null, message: serviceMock.allSales });
   });
 
-  it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found"', async function () {
-    sinon.stub(salesModel, 'findById').resolves(undefined);
+  it('should return a object with type SALE_NOT_FOUND and message with "Sale not found"', async function () {
+    sinon.stub(salesModel, 'findById').resolves([]);
     const response = await salesService.findSaleById(1);
-    expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+    expect(response).to.be.deep.equal({ type: 'SALE_NOT_FOUND', message: 'Sale not found' });
   });
 
   it('should return a object with type null and message with an array of sales', async function () {

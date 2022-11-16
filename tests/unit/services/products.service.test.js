@@ -26,7 +26,7 @@ describe('Test service layer of products path', function () {
   });
 
   it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found', async function () {
-    sinon.stub(productsModel, 'findById').resolves('');
+    sinon.stub(productsModel, 'findById').resolves(undefined);
     const response = await productsService.getProductById();
     expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
   });
@@ -52,7 +52,7 @@ describe('Test service layer of products path', function () {
   });
 
   it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found" for update function', async function () {
-    sinon.stub(productsModel, 'findById').resolves('');
+    sinon.stub(productsModel, 'findById').resolves(undefined);
     const response = await productsService.updateItem(1, 'Anything');
     expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
   });
@@ -65,7 +65,7 @@ describe('Test service layer of products path', function () {
   });
 
   it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found"  for delete function', async function () {
-    sinon.stub(productsModel, 'findById').resolves('');
+    sinon.stub(productsModel, 'findById').resolves(undefined);
     const response = await productsService.deleteItem();
     expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
   });
