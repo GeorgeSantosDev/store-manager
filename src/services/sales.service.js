@@ -10,11 +10,9 @@ const insertNewSale = async (sales) => {
   const salesWithId = sales.map((sale) => ({ ...sale, saleId: id }));
 
   const promises = salesWithId.map((sale) => salesModel.insertSales(sale));
-  const newSales = await Promise.all(promises);
+  await Promise.all(promises);
 
-  if (newSales) return { type: null, message: { id, itemsSold: sales } };
-
-  return { type: 'SALE_NOT_ADDED', message: 'Sale not added' };
+  return { type: null, message: { id, itemsSold: sales } };
 };
 
 const findAllSales = async () => {
