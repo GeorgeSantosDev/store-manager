@@ -45,6 +45,18 @@ describe('Test service layer of sales path', function () {
     expect(response).to.be.deep.equal({ type: null, message: serviceMock.sale });
   });
 
+  it('should return a object with type SALE_NOT_FOUND and message with "Sale not found"', async function () {
+    sinon.stub(salesModel, 'findById').resolves([]);
+    const response = await salesService.deleteSaleById(1);
+    expect(response).to.be.deep.equal({ type: 'SALE_NOT_FOUND', message: 'Sale not found' });
+  });
+
+  it('should return a object with type null and message with an array of sales', async function () {
+    sinon.stub(salesModel, 'findById').resolves(serviceMock.sale);
+    sinon.stub(salesModel, 'deleteSale').resolves({ affectedRows: 1 });
+    const response = await salesService.deleteSaleById(1);
+    expect(response).to.be.deep.equal({ type: null, message: { affectedRows: 1 } });
+  });
 });
 
 
