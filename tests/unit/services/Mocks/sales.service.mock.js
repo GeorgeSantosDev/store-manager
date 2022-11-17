@@ -34,8 +34,16 @@ const sale = [
   }
 ]
 
+const saleUpdate = [
+  {
+    productId: 3,
+    quantity: 18
+  }
+]
+
 module.exports = {
   newSale,
   allSales,
   sale,
+  saleUpdate,
 };
