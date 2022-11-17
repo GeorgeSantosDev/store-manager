@@ -170,5 +170,35 @@ describe('Test controller layer of products path', function () {
 
     expect(res.status).to.have.been.calledWith(204);
   });
+
+  it('should return status 200 for success search', async function () {
+    const res = {};
+    const req = { query: { q: 'M' } };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productsService, 'findItemByName')
+      .resolves({ type: null, message: [controllerMock.newProduct] });
+
+    await productsController.findProductByName(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+  });
+
+  it('should return status 500 for internal error', async function () {
+    const res = {};
+    const req = { query: { q: 'M' } };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productsService, 'findItemByName')
+      .resolves({ type: 'INTERNAL_ERRROR', message: 'Internal error' });
+
+    await productsController.findProductByName(req, res);
+
+    expect(res.status).to.have.been.calledWith(500);
+  });
 });
 
