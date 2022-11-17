@@ -3,6 +3,7 @@ const sinon = require('sinon');
 const { salesModel, productsModel } = require('../../../src/models');
 const { salesService } = require('../../../src/services');
 const serviceMock = require('./Mocks/sales.service.mock');
+const validations = require('../../../src/services/validations/index');
 
 describe('Test service layer of sales path', function () {
   afterEach(sinon.restore);
@@ -56,6 +57,24 @@ describe('Test service layer of sales path', function () {
     sinon.stub(salesModel, 'deleteSale').resolves({ affectedRows: 1 });
     const response = await salesService.deleteSaleById(1);
     expect(response).to.be.deep.equal({ type: null, message: { affectedRows: 1 } });
+  });
+
+  it('should return a object with type PRODUCT_NOT_FOUND and message with "Product not found"', async function () {
+    sinon.stub(validations.productValidation, 'productExist').resolves(undefined);
+    const response = await salesService.updateSaleById(1, serviceMock.saleUpdate);
+    expect(response).to.be.deep.equal({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+  });
+
+  it('should return a object with type SALE_NOT_FOUND and message with "Sale not found"', async function () {
+    sinon.stub(salesModel, 'findById').resolves([]);
+    const response = await salesService.updateSaleById(1, serviceMock.saleUpdate);
+    expect(response).to.be.deep.equal({ type: 'SALE_NOT_FOUND', message: 'Sale not found' });
+  });
+
+  it('should return a object with type null and message with an object of updated', async function () {
+    sinon.stub(salesModel, 'findById').resolves([true]);
+    const response = await salesService.updateSaleById(1, serviceMock.saleUpdate);
+    expect(response).to.be.deep.equal({ type: null, message: { saleId: 1, itemsUpdated: serviceMock.saleUpdate } });
   });
 });
 
