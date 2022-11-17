@@ -30,7 +30,7 @@ const findSaleById = async (id) => {
 
   const sale = await salesModel.findById(id);
 
-  if (sale) return { type: null, message: sale };
+  return { type: null, message: sale };
 };
 
 const deleteSaleById = async (id) => {
@@ -40,7 +40,7 @@ const deleteSaleById = async (id) => {
 
   const saleDeleted = await salesModel.deleteSale(id);
 
-  if (saleDeleted) return { type: null, message: saleDeleted };
+  return { type: null, message: saleDeleted };
 };
 
 const updateSaleById = async (id, changes) => {

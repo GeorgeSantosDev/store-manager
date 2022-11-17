@@ -30,9 +30,9 @@ const updateItem = async (id, name) => {
   const product = await validations.productValidation.productExist([{ productId: id }]);
   if (!product) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
   
-  const productUpdated = await productsModel.update(id, name);
+  await productsModel.update(id, name);
 
-  if (productUpdated) return { type: null, message: { id, name } };
+  return { type: null, message: { id, name } };
 };
 
 const deleteItem = async (id) => {
@@ -41,7 +41,7 @@ const deleteItem = async (id) => {
 
   const productDeleted = await productsModel.deleteProduct(id);
 
-  if (productDeleted) return { type: null, message: productDeleted };
+  return { type: null, message: productDeleted };
 };
 
 const findItemByName = async (q) => {
