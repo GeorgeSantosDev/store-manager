@@ -37,4 +37,10 @@ describe('Test model layer of products path', function () {
     const response = await productsModel.deleteProduct(1);
     expect(response).to.be.deep.equal(modelMocks.deleteReturn);
   });
+
+  it('should return a product by name', async function () {
+    sinon.stub(connection, 'execute').resolves([modelMocks.products]);
+    const response = await productsModel.findByName('M');
+    expect(response).to.be.deep.equal(modelMocks.products);
+  });
 });
