@@ -108,5 +108,37 @@ describe('Test controller layer of sales path', function () {
     expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith({ id: 1 , itemsSold: controllerMock.salesForAdd });
   });
+
+  it('should return status 404 and message with "Product not found"', async function () {
+    const res = {};
+    const req = { params: { id: 1 }, body: controllerMock.salesForAdd };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(salesService, 'deleteSaleById')
+      .resolves({ type: 'SALE_NOT_FOUND', message: 'Sale not found' });
+
+    await salesController.deleteSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
+  });
+
+  it('should return status 204 for success delete', async function () {
+    const res = {};
+    const req = { params: { id: 1 }, body: controllerMock.salesForAdd };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(salesService, 'deleteSaleById')
+      .resolves({ type: null, message: true });
+
+    await salesController.deleteSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(204);
+    expect(res.json).to.have.been.calledWith();
+  });
 });
 
