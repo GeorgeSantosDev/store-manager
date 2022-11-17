@@ -31,4 +31,10 @@ describe('Test model layer of sales path', function () {
     const response = await salesModel.insertSales(modelMocks.newSale);
     expect(response).to.be.deep.equal([{ affectedRows: 1 }, null]);
   });
+
+  it('should return an object with affected rows for success delete', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+    const response = await salesModel.deleteSale(1);
+    expect(response).to.be.deep.equal({ affectedRows: 1 });
+  });
 });
