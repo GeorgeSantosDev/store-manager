@@ -45,7 +45,7 @@ const deleteItem = async (id) => {
 };
 
 const findItemByName = async (q) => {
-  if (!q) await productsModel.findAll();
+  if (!q) return { type: null, message: await productsModel.findAll() };
 
   const product = await productsModel.findByName(q);
 

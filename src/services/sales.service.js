@@ -64,4 +64,4 @@ module.exports = {
   findSaleById,
   deleteSaleById,
   updateSaleById,
-};
+}; 
