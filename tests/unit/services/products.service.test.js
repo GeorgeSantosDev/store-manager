@@ -70,6 +70,18 @@ describe('Test service layer of products path', function () {
     const response = await productsService.deleteItem();
     expect(response).to.be.deep.equal({ type: null, message: { } });
   });
+
+  it('should return all products', async function () {
+    sinon.stub(productsModel, 'findAll').resolves(serviceMocks.allProducts);
+    const response = await productsService.findItemByName('');
+    expect(response).to.be.deep.equal({ type: null, message: serviceMocks.allProducts });
+  });
+
+  it('should return a product search by name', async function () {
+    sinon.stub(productsModel, 'findByName').resolves(serviceMocks.allProducts);
+    const response = await productsService.findItemByName('M');
+    expect(response).to.be.deep.equal({ type: null, message: serviceMocks.allProducts });
+  });
 });
 
 
