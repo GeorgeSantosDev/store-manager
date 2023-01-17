@@ -19,6 +19,7 @@
  <p> - Mocha <p/>
  <p> - Chai <p/>
  <p> - Sinon <p/>
+ <p> - Conventional commits (extension) <p/>
 <div />
 
 <h2>Endpoints<h2/>
