@@ -40,7 +40,11 @@
 <p> Status: 200 </p>
 <img src="./images/Allproducts.png"/>
 
-<br/>
+<br />
+<br />
+<br />
+<br />
+<br />
 
 <strong> /products/:id </strong>
 
@@ -55,7 +59,13 @@
 <br/>
 
 <p> Status: 404 </p>
-<p> - Product not found </p>
+<p> - { message: "Product not found" }</p>
+
+<br />
+<br />
+<br />
+<br />
+<br />
 
 <strong> /products/search </strong>
 
@@ -90,10 +100,10 @@
 <img src="./images/postResponse.png"/>
 
 <p> Status: 400 </p>
-<p> - name is required </p>
+<p> - { message: "name is required" }</p>
 
 <p> Status: 422 </p>
-<p> - name length must be at least 5 characters long </p>
+<p> - { message: "name length must be at least 5 characters long" }</p>
 
 <br />
 <br />
@@ -116,13 +126,13 @@
 <img src="./images/postResponse.png"/>
 
 <p> Status: 400 </p>
-<p> - name is required </p>
+<p> - { message: "name is required" }</p>
 
 <p> Status: 404 </p>
-<p> - Product not found </p>
+<p> - { message: "Product not found" }</p>
 
 <p> Status: 422 </p>
-<p> - name length must be at least 5 characters long </p>
+<p> - { message: "name length must be at least 5 characters long" }</p>
 
 <br />
 <br />
@@ -137,9 +147,12 @@
 
 <strong> Response: </strong>
 <p> Status: 204 </p>
+<p> - Nothing </p>
+
 <br />
+
 <p> Status: 404 </p>
-<p> - Product not found </p>
+<p> - { message: "Product not found" }</p>
 
 <br/> <br/>
 
@@ -159,9 +172,11 @@
 <p> Status: 200 </p>
 <img src="./images/Allsales.png"/>
 
-<br/>
-<br/>
-<br/>
+<br />
+<br />
+<br />
+<br />
+<br />
 
 <strong> /sales/:id </strong>
 
@@ -176,7 +191,7 @@
 <br/>
 
 <p> Status: 404 </p>
-<p> - Sale not found </p>
+<p> - { message: "Sale not found" }</p>
 
 <br />
 <br />
@@ -197,14 +212,15 @@
 <img src="./images/salesPostResponse.png"/>
 
 <p> Status: 400 </p>
-<p> - productId is required </p>
-<p> - quantity is required </p>
+<p> - { message: "productId is required" }</p>
+<p> - { message: "quantity is required" }</p>
 
 <p> Status: 422 </p>
-<p> - quantity must be greater than or equal to 1 </p>
+<p> - { message: "quantity must be greater than or equal to 1" }</p>
 
 <p> Status: 404 </p>
-<p> - Product not found </p>
+<p> - { message: "Product not found" }</p>
+
 
 <br />
 <br />
@@ -227,14 +243,14 @@
 <img src="./images/salesPostResponse.png"/>
 
 <p> Status: 400 </p>
-<p> - productId is required </p>
-<p> - quantity is required </p>
+<p> - { message: "productId is required" }</p>
+<p> - { message: "quantity is required" }</p>
 
-<p> Status: 422 </p>
-<p> - quantity must be greater than or equal to 1 </p>
+<p> Status: 422 </
+<p> - { message: "quantity must be greater than or equal to 1" }</p>
 
 <p> Status: 404 </p>
-<p> - Product not found </p>
+<p> - { message: "Product not found" }</p>
 
 <br />
 <br />
@@ -249,9 +265,11 @@
 
 <strong> Response: </strong>
 <p> Status: 204 </p>
+<p> - Nothing </p>
+
 <br />
 <p> Status: 404 </p>
-<p> - Sale not found </p>
+<p> - { message: "Sale not found" }</p>
 
 <br />
 <br />
@@ -285,3 +303,19 @@
    2. Then use the command <code>docker exec -it store_manager bash</code> to acess the container terminal. </br>
    3. Run <code>npm run test:mocha </code> on container terminal.
 </p.
+
+<br />
+<br />
+<br /> 
+
+<p> Any questions or suggestions? Contact me </p>
+
+<a href="https://www.linkedin.com/in/george-santos-dev" rel="nofollow">
+  <img
+    height="50px"
+    width="50px"
+    src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/linkedin/linkedin-original.svg"
+    alt="LinkedIn"
+  />   
+</a>
+
